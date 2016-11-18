@@ -3,12 +3,18 @@ package com.demo.personomics.personomics;
 import android.app.Activity;
 
 import android.app.ActionBar;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,9 +23,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.TabHost;
 import android.widget.TextView;
 
-public class HomeActivity extends Activity
+import java.util.ArrayList;
+import java.util.List;
+
+public class HomeActivity extends android.support.v4.app.FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 
     /**
@@ -31,6 +41,9 @@ public class HomeActivity extends Activity
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+
+    ViewPager mPager;
+    TabHost mTabHost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,21 +61,22 @@ public class HomeActivity extends Activity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getFragmentManager();
-//        if (position == 0) {
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.container, ProfileFragment.newInstance(1))
-//                    .commit();
-//        } else {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (position == 0) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ProfileFragment.newInstance())
+                    .commit();
+        } else {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
                     .commit();
-//        }
+        }
     }
 
     public void onSectionAttached(int number) {
