@@ -4,45 +4,19 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="132dp"
-            android:layout_height="132dp"
-            android:src="@drawable/umesh"
-            app:civ_border_width="2dp"
-            android:padding="16dp"
-            app:civ_border_color="@android:color/black"/>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Umesh Khanna"
-                android:textSize="32sp"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Week 4"/>
-        </LinearLayout>
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#eee">
+        android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/health"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:background="#ccc"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:onClick="toggleDaily">
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -55,11 +29,14 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/fitness"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:onClick="toggleDaily"
+            android:background="#eee">
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -72,11 +49,14 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/checkin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="16dp"
+            android:background="#eee"
+            android:onClick="toggleDaily">
             <ImageView
                 android:layout_width="32dp"
                 android:layout_height="32dp"
@@ -89,10 +69,16 @@
                 android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view"
+        android:id="@+id/recycler_view_health"
         android:scrollbars="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_fitness"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eeeeee">
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:onClick="lastMonth"
+        android:scaleX="-1"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/right_arrow"/>
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_gravity="center_vertical">
+        <TextView
+            android:id="@+id/month"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="November"
+            android:gravity="center"
+            android:padding="16dp"/>
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="64dp">
+        </com.github.mikephil.charting.charts.LineChart>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:onClick="nextMonth"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/right_arrow"/>
+</LinearLayout>

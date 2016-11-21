@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:weightSum="1"
+    android:background="@android:color/white"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginBottom="16dp">
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:layout_marginLeft="16dp"
+        android:maxLines="1"
+        android:text="Sample Activity"
+        android:layout_gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/value"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:gravity="end"
+        android:maxLines="1"
+        android:text="1231"
+        android:textSize="18sp"
+        android:textColor="#c9c9c9"
+        android:layout_gravity="center_vertical"/>
+    <TextView
+        android:id="@+id/unit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.15"
+        android:layout_marginLeft="4dp"
+        android:maxLines="1"
+        android:textSize="18sp"
+        android:textColor="#c9c9c9"
+        android:text="hours"
+        android:layout_gravity="center_vertical"/>
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/bar_chart"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_weight="0.5">
+    </com.github.mikephil.charting.charts.BarChart>
+</LinearLayout>

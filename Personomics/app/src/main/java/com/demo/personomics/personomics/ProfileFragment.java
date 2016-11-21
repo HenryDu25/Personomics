@@ -78,8 +78,8 @@ public class ProfileFragment extends Fragment
 
         List<android.support.v4.app.Fragment> fl = new ArrayList<>();
         fl.add(new DailyFragment());
-        fl.add(new DailyFragment());
-        fl.add(new DailyFragment());
+        fl.add(new WeeklyFragment());
+        fl.add(new MonthlyFragment());
 
         mPager = (ViewPager) v.findViewById(R.id.pager);
         mPagerAdapter = new ProfilePagerAdapter(getChildFragmentManager(), fl);

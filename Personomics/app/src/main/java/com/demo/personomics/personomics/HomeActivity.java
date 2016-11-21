@@ -3,6 +3,8 @@ package com.demo.personomics.personomics;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -15,6 +17,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,8 +29,12 @@ import android.widget.ArrayAdapter;
 import android.widget.TabHost;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ConsoleHandler;
 
 public class HomeActivity extends android.support.v4.app.FragmentActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -42,8 +49,9 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
      */
     private CharSequence mTitle;
 
-    ViewPager mPager;
-    TabHost mTabHost;
+
+    public List<LineChart> lineChartList;
+    public int lineChartCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +70,8 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+        lineChartList = new ArrayList<>();
+        lineChartCounter = 2;
     }
 
     @Override
@@ -71,6 +81,14 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
         if (position == 0) {
             fragmentManager.beginTransaction()
                     .replace(R.id.container, ProfileFragment.newInstance())
+                    .commit();
+        } else if (position == 1) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, ExerciseFragment.newInstance())
+                    .commit();
+        }else if (position == 2) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, RecipeFragment.newInstance())
                     .commit();
         } else {
             fragmentManager.beginTransaction()
@@ -85,11 +103,18 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
                 mTitle = "Profile";
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
+                mTitle = "Exercise";
                 break;
             case 3:
-                mTitle = getString(R.string.title_section3);
+                mTitle = "Recipes";
                 break;
+            case 4:
+                mTitle = "Live Chat";
+                break;
+            case 5:
+                mTitle = "Settings";
+                break;
+
         }
     }
 
@@ -164,8 +189,58 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((HomeActivity) activity).onSectionAttached(
-                    getArguments().getInt(ARG_SECTION_NUMBER));
+            ((HomeActivity) activity).onSectionAttached(1);
+        }
+    }
+
+    public void toggleDaily(View v) {
+        if (v.findViewById(R.id.health) != null) {
+            findViewById(R.id.health).setBackground(new ColorDrawable(Color.parseColor("#CCCCCC")));
+            findViewById(R.id.fitness).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+            findViewById(R.id.checkin).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+
+            findViewById(R.id.recycler_view_health).setVisibility(View.VISIBLE);
+            findViewById(R.id.recycler_view_fitness).setVisibility(View.GONE);
+        } else if (v.findViewById(R.id.fitness) != null) {
+            findViewById(R.id.health).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+            findViewById(R.id.fitness).setBackground(new ColorDrawable(Color.parseColor("#CCCCCC")));
+            findViewById(R.id.checkin).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+
+            findViewById(R.id.recycler_view_health).setVisibility(View.GONE);
+            findViewById(R.id.recycler_view_fitness).setVisibility(View.VISIBLE);
+        } else if (v.findViewById(R.id.checkin) != null) {
+            findViewById(R.id.health).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+            findViewById(R.id.fitness).setBackground(new ColorDrawable(Color.parseColor("#EEEEEE")));
+            findViewById(R.id.checkin).setBackground(new ColorDrawable(Color.parseColor("#CCCCCC")));
+
+            findViewById(R.id.recycler_view_health).setVisibility(View.GONE);
+            findViewById(R.id.recycler_view_fitness).setVisibility(View.GONE);
+        }
+    }
+
+    public void lastMonth (View v) {
+        if (lineChartCounter != 0) {
+            --lineChartCounter;
+            if (lineChartCounter == 0) {
+                ((TextView)findViewById(R.id.month)).setText("September");
+                ViewGroupUtils.replaceView(findViewById(R.id.line_chart), lineChartList.get(lineChartCounter));
+            } else if (lineChartCounter == 1) {
+                ((TextView)findViewById(R.id.month)).setText("October");
+                ViewGroupUtils.replaceView(findViewById(R.id.line_chart), lineChartList.get(lineChartCounter));
+            }
+        }
+    }
+
+    public void nextMonth (View v) {
+        if (lineChartCounter != 2) {
+            ++lineChartCounter;
+            if (lineChartCounter == 1) {
+                ((TextView)findViewById(R.id.month)).setText("October");
+                ViewGroupUtils.replaceView(findViewById(R.id.line_chart), lineChartList.get(lineChartCounter));
+            } else if (lineChartCounter == 2) {
+                ((TextView)findViewById(R.id.month)).setText("November");
+                ViewGroupUtils.replaceView(findViewById(R.id.line_chart), lineChartList.get(lineChartCounter));
+            }
         }
     }
 
