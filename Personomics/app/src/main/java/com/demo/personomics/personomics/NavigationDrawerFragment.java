@@ -103,9 +103,10 @@ public class NavigationDrawerFragment extends Fragment {
                 android.R.id.text1,
                 new String[]{
                         "Profile",
-                        "Exercise",
+                        "Learn Your Microbiome",
                         "Recipes",
                         "Live Chat",
+                        "Partners",
                         "Settings"
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);

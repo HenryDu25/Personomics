@@ -21,11 +21,17 @@ import java.util.List;
  */
 
 public class ExerciseFragment extends Fragment {
+
+    private static final String ARG_SECTION_NUMBER = "section_number";
+
     RecyclerView mRecyclerView;
     ExerciseAdapter mExerciseAdapter;
 
-    public static ExerciseFragment newInstance() {
+    public static ExerciseFragment newInstance(int sectionNumber) {
         ExerciseFragment fragment = new ExerciseFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -46,7 +52,7 @@ public class ExerciseFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((HomeActivity) activity).onSectionAttached(1);
+        ((HomeActivity) activity).onSectionAttached(2);
     }
 
     private List<Exercise> generateExerciseList () {

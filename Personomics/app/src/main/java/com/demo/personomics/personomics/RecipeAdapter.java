@@ -21,12 +21,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     private List<Recipe> recipeList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView name;
         public ImageView picture;
 
         public MyViewHolder(View view) {
             super(view);
-            name = (TextView) view.findViewById(R.id.recipe_name);
             picture = (ImageView) view.findViewById(R.id.recipe_picture);
         }
     }
@@ -46,7 +44,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.MyViewHold
     @Override
     public void onBindViewHolder (final MyViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
-        holder.name.setText(recipe.getName());
         holder.picture.setImageResource(recipe.getPicNum());
     }
 

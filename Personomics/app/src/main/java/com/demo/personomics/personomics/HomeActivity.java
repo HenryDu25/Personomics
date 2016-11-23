@@ -3,8 +3,14 @@ package com.demo.personomics.personomics;
 import android.app.Activity;
 
 import android.app.ActionBar;
+import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.pdf.PdfRenderer;
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
+import android.net.Uri;
+import android.preference.PreferenceFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
@@ -17,6 +23,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -26,8 +35,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.CalendarView;
+import android.widget.DatePicker;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.LineChart;
 
@@ -37,7 +49,8 @@ import java.util.List;
 import java.util.logging.ConsoleHandler;
 
 public class HomeActivity extends android.support.v4.app.FragmentActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements NavigationDrawerFragment.NavigationDrawerCallbacks,
+        DatePickerDialog.OnDateSetListener{
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -52,14 +65,19 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
 
     public List<LineChart> lineChartList;
     public int lineChartCounter;
-
+    public String name;
+    public String email;
+    public String location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        Intent i = new Intent(HomeActivity.this, NumberActivity.class);
-        startActivity(i);
+        getActionBar().setBackgroundDrawable(new ColorDrawable(getColor(R.color.mainPurple)));
+
+        name = "Umesh Khanna";
+        email = "Umesh.Khanna@gmail.com";
+        location = "Toronto";
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -72,6 +90,9 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
 
         lineChartList = new ArrayList<>();
         lineChartCounter = 2;
+
+        Intent i = new Intent(HomeActivity.this, NumberActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -80,15 +101,28 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (position == 0) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ProfileFragment.newInstance())
+                    .replace(R.id.container, ProfileFragment.newInstance(position + 1))
                     .commit();
         } else if (position == 1) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, ExerciseFragment.newInstance())
+                    .replace(R.id.container, MicrobiomeFragment
+                            .newInstance(position + 1))
                     .commit();
         }else if (position == 2) {
             fragmentManager.beginTransaction()
-                    .replace(R.id.container, RecipeFragment.newInstance())
+                    .replace(R.id.container, RecipeFragment.newInstance(position + 1))
+                    .commit();
+        } else if (position == 3) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, LiveChatFragment.newInstance(position + 1))
+                    .commit();
+        } else if (position == 4) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, PartnerFragment.newInstance(position + 1))
+                    .commit();
+        } else if (position == 5) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, SettingsFragment.newInstance(position + 1))
                     .commit();
         } else {
             fragmentManager.beginTransaction()
@@ -103,7 +137,7 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
                 mTitle = "Profile";
                 break;
             case 2:
-                mTitle = "Exercise";
+                mTitle = "Learn Your Microbiome";
                 break;
             case 3:
                 mTitle = "Recipes";
@@ -112,6 +146,9 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
                 mTitle = "Live Chat";
                 break;
             case 5:
+                mTitle = "Partners";
+                break;
+            case 6:
                 mTitle = "Settings";
                 break;
 
@@ -132,7 +169,7 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
             // Only show items in the action bar relevant to this screen
             // if the drawer is not showing. Otherwise, let the drawer
             // decide what to show in the action bar.
-            getMenuInflater().inflate(R.menu.home, menu);
+            //getMenuInflater().inflate(R.menu.home, menu);
             restoreActionBar();
             return true;
         }
@@ -189,7 +226,7 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
         @Override
         public void onAttach(Activity activity) {
             super.onAttach(activity);
-            ((HomeActivity) activity).onSectionAttached(1);
+            ((HomeActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
 
@@ -244,4 +281,64 @@ public class HomeActivity extends android.support.v4.app.FragmentActivity
         }
     }
 
+    public void updateName (View view) {
+        Intent i = new Intent(HomeActivity.this, NameActivity.class);
+        startActivityForResult(i, 0);
+    }
+
+    public void updateEmail (View view) {
+        Intent i = new Intent(HomeActivity.this, EmailActivity.class);
+        startActivityForResult(i, 1);
+    }
+
+    public void updateLocation (View view) {
+        Intent i = new Intent(HomeActivity.this, LocationActivity.class);
+        startActivityForResult(i, 2);
+    }
+
+    public void updatePassword (View view) {
+        Intent i = new Intent(HomeActivity.this, PasswordActivity.class);
+        startActivity(i);
+    }
+
+    public void updateBirthday (View view) {
+        Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
+        DatePickerDialog dialog = new DatePickerDialog(HomeActivity.this, this,
+                calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),calendar.get(Calendar.DAY_OF_MONTH));
+        dialog.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != RESULT_OK) return;
+
+        if (requestCode == 0) {
+            name = data.getStringExtra("name");
+            ((TextView) findViewById(R.id.personName)).setText(data.getStringExtra("name"));
+        } if (requestCode == 1) {
+            email = data.getStringExtra("email");
+            ((TextView) findViewById(R.id.email)).setText(data.getStringExtra("email"));
+        } if (requestCode == 2) {
+            location = data.getStringExtra("location");
+            ((TextView) findViewById(R.id.location)).setText(data.getStringExtra("location"));
+        }
+    }
+
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int day) {
+        ((TextView) findViewById(R.id.birth)).setText(new StringBuilder()
+                // Month is 0 based so add 1
+                .append(month + 1).append("/").append(day).append("/").append(year).append(" "));
+    }
+
+    public void openLink(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.multiplylabs.com/#/"));
+        startActivity(browserIntent);
+    }
+
+    public void notYetToast (View view) {
+        Toast.makeText(this, "Your appointment has not started yet.",
+                Toast.LENGTH_SHORT).show();
+    }
 }

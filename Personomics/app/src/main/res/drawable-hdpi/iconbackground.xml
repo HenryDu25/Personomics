@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="rectangle" >
+    android:shape="oval" >
 
     <!-- view background color -->
     <solid
-        android:color="@android:color/white" >
+        android:color="@color/mainPurple" >
     </solid>
 
     <!-- view border color and width -->
     <stroke
         android:width="1dp"
-        android:color="@color/mainPurple" >
+        android:color="@color/mainBlue" >
     </stroke>
 
     <!-- The radius makes the corners rounded -->

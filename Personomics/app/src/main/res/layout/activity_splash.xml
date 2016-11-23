@@ -22,13 +22,21 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Sign Up"
+                android:textColor="@android:color/white"
+                android:background="@color/mainPurple"
                 android:layout_weight="1"
                 android:onClick="launchSignUp"/>
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"/>
             <Button
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Login"
+                android:background="@color/mainPurple"
                 android:layout_weight="1"
+                android:textColor="@android:color/white"
                 android:onClick="launchLogin"/>
         </LinearLayout>
     </LinearLayout>

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +26,18 @@ public class ProfileFragment extends Fragment
     implements ViewPager.OnPageChangeListener
         , TabHost.OnTabChangeListener {
 
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
     private ViewPager mPager;
     private TabHost mTabHost;
 
     private PagerAdapter mPagerAdapter;
 
-    public static ProfileFragment newInstance() {
+    public static ProfileFragment newInstance(int sectionNumber) {
         ProfileFragment fragment = new ProfileFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -43,7 +48,7 @@ public class ProfileFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
-
+        ((TextView) rootView.findViewById(R.id.personName)).setText(((HomeActivity) getActivity()).name);
         initPager(rootView);
         initTabHost(rootView);
 
@@ -53,7 +58,7 @@ public class ProfileFragment extends Fragment
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        ((HomeActivity) activity).onSectionAttached(1);
+        ((HomeActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
     }
 
     private void initTabHost(View v) {

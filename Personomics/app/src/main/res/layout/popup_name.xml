@@ -4,24 +4,22 @@
     android:layout_height="match_parent"
     android:background="@drawable/confirm_border"
     android:padding="16dp">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Enter Verification Number"
-        android:layout_gravity="center"
-        android:textColor="@android:color/black"/>
+        android:layout_gravity="center_horizontal"
+        android:text="Enter your name"/>
     <EditText
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="XFC167"
-        android:inputType="textCapCharacters"
-        android:maxLength="6" />
+        android:layout_gravity="center_horizontal"
+        android:hint="Name"/>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"
-        android:textColor="@android:color/white"
-        android:background="@color/mainPurple"
-        android:onClick="closeConfirm"/>
+        android:layout_gravity="center_horizontal"
+        android:onClick="closeName"/>
 </LinearLayout>

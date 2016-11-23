@@ -38,6 +38,26 @@ public class WeeklyFragment extends Fragment {
     private  List<WeekInfo> generateWeekInfo() {
         List<WeekInfo> weekInfoList = new ArrayList<>();
         ArrayList<Integer> info = new ArrayList<>();
+        info.add(135);
+        info.add(134);
+        info.add(136);
+        info.add(135);
+        info.add(134);
+        info.add(135);
+        info.add(133);
+        weekInfoList.add(new WeekInfo("Weight", 133, "lbs", info));
+
+        info = new ArrayList<>();
+        info.add(5);
+        info.add(5);
+        info.add(5);
+        info.add(5);
+        info.add(5);
+        info.add(5);
+        info.add(5);
+        weekInfoList.add(new WeekInfo("Cholesteral", 51, "mg/dL", info));
+
+        info = new ArrayList<>();
         info.add(4);
         info.add(3);
         info.add(5);
@@ -45,7 +65,8 @@ public class WeeklyFragment extends Fragment {
         info.add(2);
         info.add(1);
         info.add(6);
-        weekInfoList.add(new WeekInfo("Active Time", 123, "hours", info));
+        weekInfoList.add(new WeekInfo("Blood Pressure", 101, "mmHg", info));
+
         return weekInfoList;
     }
 }

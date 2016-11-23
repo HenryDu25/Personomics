@@ -16,12 +16,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".PopupActivity"
-            android:theme="@style/AppTheme.CustomTheme"
-            ></activity>
-        <activity android:name=".HomeActivity"></activity>
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".NameActivity"
+        android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".EmailActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".PasswordActivity"
+            android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".LocationActivity"
+        android:theme="@style/AppTheme.CustomTheme"/>
+        <activity android:name=".HomeActivity"/>
         <activity android:name=".NumberActivity"
-            android:theme="@style/AppTheme.CustomTheme2"
-            ></activity>
+            android:theme="@style/AppTheme.CustomTheme2"/>
     </application>
 
 </manifest>
