@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="34dp"
                 android:textColor="@android:color/black"
-                android:text="Genetic Analyst"
+                android:text="Genetic Counselor"
                 android:layout_gravity="center_horizontal" />
     </LinearLayout>
     <LinearLayout
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="34dp"
-            android:text="Dietitian"
+            android:text="Nutrition Coach"
             android:textColor="@android:color/black"
             android:layout_gravity="center_horizontal"/>
     </LinearLayout>
